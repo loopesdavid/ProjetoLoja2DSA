@@ -1,9 +1,27 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿// importa as bibliotecas que serao utilizadas no projeto
+using Microsoft.AspNetCore.Mvc;
+using ProjetoLoja2DSA.Repositorio;
 
+// define o nome e onde a classe esta usuarioController esta localizada
+// namespace ajuda a organizar o codigo e evitar conflitos
 namespace ProjetoLoja2DSA.Controllers
 {
+    // classe usuarioController que está herdando da classe pai Controller
     public class UsuarioController : Controller
     {
+        // declara a variavel privada e somente leitura do tipo usuarioRepositorio
+        // instancia o _usuarioController para ser atribuido no construtor e interagir com os dados 
+        private readonly UsuarioRepositorio _usuarioRepositorio;
+
+        // define o construtor da classe usuarioController
+        // recebe a instancia de usuarioRepostorio com parametros
+    public UsuarioController(UsuarioRepositorio usuarioRepositorio)
+    {
+            // recebe a instancia de usuario repositorio
+        _usuarioRepositorio = usuarioRepositorio;
+    }
+
+        // interface que representa o resultado da pagina
         public IActionResult Index()
         {
             return View();
