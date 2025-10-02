@@ -17,14 +17,30 @@ namespace ProjetoLoja2DSA.Controllers
         // recebe a instancia de usuarioRepostorio com parametros
     public UsuarioController(UsuarioRepositorio usuarioRepositorio)
     {
-            // recebe a instancia de usuario repositorio
+        // o construtor é chamado quando uma nova instância é criada
         _usuarioRepositorio = usuarioRepositorio;
     }
 
+        [HttpGet]
         // interface que representa o resultado da pagina
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Login(string email, string senha)
+        {
+            var usuario = _usuarioRepositorio.ObterUsuario(email);
+
+            if (usuario != null && usuario.senha != senha)
+            {
+                return RedirectToAction("Index", "Cliente");
+            }
+            ModelState.AddModelError("", "Email / senha Inválidos");
+
+        // RETORNA A PAGINA INDEX
+        return View();
         }
     }
 }
